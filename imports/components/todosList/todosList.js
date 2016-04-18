@@ -17,6 +17,15 @@ function TodosListController($scope) {
   $scope.viewModel($ctrl);
 
   $ctrl.helpers({
-    tasks() {return Tasks.find({});},
+    tasks() {return Tasks.find({}, { sort: { createdAt: -1 } });},
   });
+
+  $ctrl.addTask = newTask => {
+    Tasks.insert({
+      text: newTask,
+      createdAt: new Date,
+    });
+
+    $ctrl.newTask = '';
+  };
 }
