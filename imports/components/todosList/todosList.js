@@ -16,8 +16,21 @@ function TodosListController($scope) {
 
   $scope.viewModel($ctrl);
 
+  $ctrl.hideCompleted = false;
+
   $ctrl.helpers({
-    tasks() {return Tasks.find({}, { sort: { createdAt: -1 } });},
+    tasks() {
+      const selector = {};
+
+      if ($ctrl.getReactively('hideCompleted')) {
+        selector.checked = { $ne: true };
+      }
+
+      return Tasks.find(selector, { sort: { createdAt: -1 } });
+    },
+    incompleteCount() {
+      return Tasks.find({ checked: { $ne: true } }).count();
+    },
   });
 
   $ctrl.addTask = newTask => {
