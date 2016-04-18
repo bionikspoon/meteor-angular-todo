@@ -28,4 +28,14 @@ function TodosListController($scope) {
 
     $ctrl.newTask = '';
   };
+
+  $ctrl.setChecked = task => {
+    Tasks.update(task._id, {
+      $set: { checked: !task.checked },
+    });
+  };
+
+  $ctrl.removeTask = task => {
+    Tasks.remove(task._id);
+  };
 }
