@@ -14,6 +14,6 @@
     "array-bracket-spacing": [ 2, "always" ],
     "no-unused-vars": 1,
     "max-len": [ 1, 120 ],
-    "brace-style": [ 2, "stroustrup" ]
+    "brace-style": [ 2, "stroustrup", { "allowSingleLine": true } ]
   }
 }

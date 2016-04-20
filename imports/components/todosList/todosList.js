@@ -1,5 +1,6 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
+import { Meteor } from 'meteor/meteor';
 import { Tasks } from '../../api/tasks';
 import './todosList.html';
 
@@ -28,27 +29,27 @@ function TodosListController($scope) {
 
       return Tasks.find(selector, { sort: { createdAt: -1 } });
     },
+
     incompleteCount() {
       return Tasks.find({ checked: { $ne: true } }).count();
+    },
+
+    currentUser() {
+      return Meteor.user();
     },
   });
 
   $ctrl.addTask = newTask => {
-    Tasks.insert({
-      text: newTask,
-      createdAt: new Date,
-    });
+    Meteor.call('tasks.insert', newTask);
 
     $ctrl.newTask = '';
   };
 
   $ctrl.setChecked = task => {
-    Tasks.update(task._id, {
-      $set: { checked: !task.checked },
-    });
+    Meteor.call('tasks.setChecked', task._id, !task.checked);
   };
 
   $ctrl.removeTask = task => {
-    Tasks.remove(task._id);
+    Meteor.call('tasks.remove', task._id);
   };
 }
