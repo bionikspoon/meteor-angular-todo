@@ -17,6 +17,7 @@ function TodosListController($scope) {
 
   $scope.viewModel($ctrl);
 
+  $ctrl.subscribe('tasks');
   $ctrl.hideCompleted = false;
 
   $ctrl.helpers({
@@ -51,5 +52,9 @@ function TodosListController($scope) {
 
   $ctrl.removeTask = task => {
     Meteor.call('tasks.remove', task._id);
+  };
+
+  $ctrl.setPrivate = task => {
+    Meteor.call('tasks.setPrivate', task._id, !task.private);
   };
 }
