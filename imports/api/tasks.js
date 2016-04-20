@@ -33,7 +33,7 @@ Meteor.methods({
     check(taskId, String);
 
     const task = Tasks.findOne(taskId);
-    if (task.private && task.owner !== Meteor.user()) throw new Meteor.Error('not-authorized');
+    if (task.private && task.owner !== Meteor.userId()) throw new Meteor.Error('not-authorized');
 
     Tasks.remove(taskId);
   },
@@ -43,7 +43,7 @@ Meteor.methods({
     check(setChecked, Boolean);
 
     const task = Tasks.findOne(taskId);
-    if (task.private && task.owner !== Meteor.user()) throw new Meteor.Error('not-authorized');
+    if (task.private && task.owner !== Meteor.userId()) throw new Meteor.Error('not-authorized');
 
     Tasks.update(taskId, {
       $set: { checked: setChecked },

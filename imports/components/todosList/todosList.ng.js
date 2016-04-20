@@ -19,26 +19,9 @@ function TodosListController($scope) {
 
   $ctrl.subscribe('tasks');
   $ctrl.hideCompleted = false;
+  $ctrl.helpers({ tasks, incompleteCount, currentUser });
 
-  $ctrl.helpers({
-    tasks() {
-      const selector = {};
-
-      if ($ctrl.getReactively('hideCompleted')) {
-        selector.checked = { $ne: true };
-      }
-
-      return Tasks.find(selector, { sort: { createdAt: -1 } });
-    },
-
-    incompleteCount() {
-      return Tasks.find({ checked: { $ne: true } }).count();
-    },
-
-    currentUser() {
-      return Meteor.user();
-    },
-  });
+  // // // // // // METHODS
 
   $ctrl.addTask = newTask => {
     Meteor.call('tasks.insert', newTask);
@@ -57,4 +40,24 @@ function TodosListController($scope) {
   $ctrl.setPrivate = task => {
     Meteor.call('tasks.setPrivate', task._id, !task.private);
   };
+
+  // // // // // // HELPERS
+
+  function tasks() {
+    const selector = {};
+
+    if ($ctrl.getReactively('hideCompleted')) {
+      selector.checked = { $ne: true };
+    }
+
+    return Tasks.find(selector, { sort: { createdAt: -1 } });
+  }
+
+  function incompleteCount() {
+    return Tasks.find({ checked: { $ne: true } }).count();
+  }
+
+  function currentUser() {
+    return Meteor.user();
+  }
 }

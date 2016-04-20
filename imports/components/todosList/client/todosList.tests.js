@@ -1,9 +1,8 @@
-/* eslint-env mocha */
+/* eslint-env mocha, angular/mocks */
 import 'angular-mocks';
 import { Meteor } from 'meteor/meteor';
 import { assert } from 'meteor/practicalmeteor:chai';
 import { sinon } from 'meteor/practicalmeteor:sinon';
-
 import todosList from '../todosList.ng.js';
 
 describe('todosList', () => {
@@ -14,6 +13,7 @@ describe('todosList', () => {
     let $compile;
     let $rootScope;
 
+    // eslint-disable-next-line angular/window-service
     window.module(todosList.name);
 
     inject((_$compile_, _$rootScope_) => {
@@ -33,7 +33,7 @@ describe('todosList', () => {
     });
 
     it('Should be showing incomplete tasks count', () => {
-      assert.include(element[ 0 ].querySelector('h1').innerHTML, '0');
+      assert.include(element[ 0 ].querySelector('h1').textContent, '0');
     });
   });
 
