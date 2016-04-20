@@ -21,3 +21,6 @@ crosswalk
 accounts-password
 dotansimha:accounts-ui-angular
 meteortoys:allthings
+practicalmeteor:mocha
+random
+practicalmeteor:chai
