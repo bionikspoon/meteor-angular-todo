@@ -19,13 +19,13 @@ Meteor.methods({
   },
 
   'tasks.remove'(taskId) {
-    check(taskId, Mongo.ObjectID);
+    check(taskId, String);
 
     Tasks.remove(taskId);
   },
 
   'tasks.setChecked'(taskId, setChecked) {
-    check(taskId, Mongo.ObjectID);
+    check(taskId, String);
     check(setChecked, Boolean);
 
     Tasks.update(taskId, {

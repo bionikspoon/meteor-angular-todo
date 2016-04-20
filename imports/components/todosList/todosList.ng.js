@@ -2,13 +2,13 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import { Meteor } from 'meteor/meteor';
 import { Tasks } from '../../api/tasks';
-import './todosList.html';
+import './todosList.ng.html';
 
 export default angular
   .module('todosList', [ angularMeteor ])
   .component('todosList', {
-    templateUrl: 'imports/components/todosList/todosList.html',
-    controller: [ '$scope', TodosListController ],
+    templateUrl: 'imports/components/todosList/todosList.ng.html',
+    controller: TodosListController,
   });
 
 /* @ngInject */
